@@ -76,8 +76,6 @@ No menu Tools (Ferramentas):
 ## 🎮 Compatibilidade Testada
 
 - 18 Wheels of Steel: Haulin' (Linux via Wine)
-- TrackMania Nations Forever
-- Need for Speed: Underground 2 / Most Wanted
 
 ---
 
