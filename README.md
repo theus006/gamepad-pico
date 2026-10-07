@@ -82,3 +82,6 @@ Testado e aprovado em:
 ## 📜 Licença
 
 Este projeto é de código aberto sob a licença MIT. Sinta-se à vontade para modificar, melhorar e distribuir!
+
+<img width="1169" height="827" alt="Schematic_controle-pico_2026-10-07 (1)" src="https://github.com/user-attachments/assets/bc778187-1d3f-44c0-a352-0aab5db59ef0" />
+
