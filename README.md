@@ -1,6 +1,6 @@
 # 🏎️ Motion Control Steering Wheel (RP2040 + ADXL345)
 
-Um controlador HID (Gamepad/Volante USB) baseado em sensor de movimento e inclinação. O projeto utiliza um microcontrolador Raspberry Pi Pico (RP2040) e um acelerômetro triaxial ADXL345 para converter a inclinação das mãos no Eixo X da direção de um veículo, acompanhado de botões digitais para acelerador e freio.
+Um controlador HID de jogo (Gamepad/Volante USB) baseado em sensor de movimento e inclinação. O projeto utiliza um microcontrolador Raspberry Pi Pico (RP2040) e um acelerômetro triaxial ADXL345 para converter a inclinação das mãos no Eixo X da direção de um veículo, acompanhado de botões digitais para acelerador e freio.
 
 Reconhecido nativamente como um dispositivo Plug & Play USB HID, não requer drivers adicionais no Windows ou Linux.
 
@@ -9,10 +9,9 @@ Reconhecido nativamente como um dispositivo Plug & Play USB HID, não requer dri
 ## 🛠️ Recursos e Destaques
 
 - Nativo USB HID (TinyUSB): Funciona diretamente sem necessidade de pacotes externos de drivers ou softwares de emulação.
-- Filtro de Suavização Passa-Baixa (Média Móvel): Suaviza pequenas variações e tremores das mãos, garantindo uma direção firme e precisa.
-- Zona Morta Neutra (Deadzone): Evita desvios acidentais em retas e rodovias.
-- Sensibilidade Customizável: Escala otimizada para curvas confortáveis sem necessidade de inclinações excessivas dos pulsos (~24° de esterço máximo).
-- Testado no Linux (Wine/Proton): Ótimo desempenho em jogos leves e clássicos de corrida e simuladores de caminhão (ex: 18 Wheels of Steel: Haulin', TrackMania, Need for Speed).
+- Leitura Direta e Limite de Esterço: Mapeamento do Eixo X calibrado para limite de +- 7.0 m/s² (~45° de inclinação máxima), convertendo a aceleração para a escala padrão do Gamepad HID (-127 a 127).
+- Sinalização de LED: O LED interno pisca durante o funcionamento e entra em modo de alerta caso o sensor ADXL345 não seja identificado na inicialização.
+- Compatibilidade com Linux/Wine: Desenvolvido para rodar perfeitamente em jogos de corrida rodando via camada Wine/Proton no Linux sem depender de emuladores de controle.
 
 ---
 
@@ -34,7 +33,7 @@ Reconhecido nativamente como um dispositivo Plug & Play USB HID, não requer dri
 - GND -> GND da Pico
 - SDA -> GP4 (SDA)
 - SCL -> GP5 (SCL)
-- CS  -> 3.3V (Obrigatório para forçar o modo I2C)
+- CS  -> 3.3V (Força o modo I2C)
 - SDO -> GND (Define o endereço I2C para 0x53)
 
 ### Conexão dos Botões:
@@ -47,7 +46,7 @@ Nota: Os botões utilizam os resistores de pull-up internos (INPUT_PULLUP). O ou
 
 ## 💻 Requisitos e Bibliotecas (Arduino IDE)
 
-Para compilar e carregar o código no Raspberry Pi Pico / RP2040, certifique-se de ter instalado no Arduino IDE:
+Para compilar e carregar o código no Raspberry Pi Pico / RP2040, certifique-se de ter instalado na Arduino IDE:
 
 1. Placa: Pacote de placas Raspberry Pi Pico/RP2040 (Earle F. Philhower ou pacote oficial da Arduino).
 2. Bibliotecas Necessárias:
@@ -58,7 +57,7 @@ Para compilar e carregar o código no Raspberry Pi Pico / RP2040, certifique-se 
 ### Configuração na Arduino IDE:
 No menu Tools (Ferramentas):
 - Board: Raspberry Pi Pico ou Waveshare RP2040-Zero
-- USB Stack: Adafruit TinyUSB (Crucial para o suporte HID)
+- USB Stack: Adafruit TinyUSB (Obrigatório para o suporte HID)
 
 ---
 
@@ -70,18 +69,23 @@ No menu Tools (Ferramentas):
 2. Abra o arquivo .ino na Arduino IDE.
 3. Conecte sua placa RP2040 via cabo USB.
 4. Selecione a porta correta e clique em Upload.
-5. Abra o painel de controles do seu sistema operacional (jstest-gtk no Linux ou joy.cpl no Windows) para testar a movimentação e calibração dos eixos!
+5. Abra o painel de controles do seu sistema operacional (jstest-gtk no Linux ou joy.cpl no Windows) para testar a movimentação e os botões.
 
 ---
-## 🎮 Compatibilidade com Jogos
 
-Testado e aprovado em:
-- 18 Wheels of Steel: Haulin' (via Wine/Linux)
+## 🎮 Compatibilidade Testada
+
+- 18 Wheels of Steel: Haulin' (Linux via Wine)
+- TrackMania Nations Forever
+- Need for Speed: Underground 2 / Most Wanted
+
 ---
 
 ## 📜 Licença
 
-Este projeto é de código aberto sob a licença MIT. Sinta-se à vontade para modificar, melhorar e distribuir!
+Este projeto é de código aberto sob a licença MIT.
+
+## 📜 Esquemático
 
 <img width="1169" height="827" alt="Schematic_controle-pico_2026-10-07 (1)" src="https://github.com/user-attachments/assets/bc778187-1d3f-44c0-a352-0aab5db59ef0" />
 
