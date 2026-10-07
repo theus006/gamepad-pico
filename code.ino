@@ -1,3 +1,45 @@
+/*
+ * ==============================================================================
+ * PROJETO: Volante / Gamepad USB por Controle de Movimento
+ * PLACA: Raspberry Pi Pico / RP2040 (ex: RP2040-Zero)
+ * SENSOR: Acelerômetro Triaxial ADXL345 (I2C)
+ * AUTOR: Matheus Costa
+ * LICENÇA: MIT
+ * ==============================================================================
+ * 
+ * DESCRIÇÃO:
+ * Converte a inclinação lateral do acelerômetro ADXL345 no Eixo X analógico
+ * de um Gamepad USB HID nativo. Inclui limitação de esterço em +-45 graus e 
+ * dois botões digitais para aceleração e freio.
+ * 
+ * MAPEAMENTO DE PINOS (PINOUT):
+ * ------------------------------------------------------------------------------
+ *  ADXL345 (I2C)        RP2040 / Pico
+ *  -----------------------------------------------------------------------------
+ *  VCC               -> 3.3V
+ *  GND               -> GND
+ *  SDA               -> GP4 (SDA0)
+ *  SCL               -> GP5 (SCL0)
+ *  CS                -> 3.3V (Força o modo I2C)
+ *  SDO               -> GND  (Endereço I2C 0x53)
+ * 
+ *  BOTÕES
+ *  -----------------------------------------------------------------------------
+ *  Acelerador        -> GP14 (Com Pull-Up interno -> GND)
+ *  Freio             -> GP15 (Com Pull-Up interno -> GND)
+ *  LED Status        -> LED_BUILTIN
+ * 
+ * DEPENDÊNCIAS & BIBLIOTECAS:
+ *  - Adafruit_Sensor
+ *  - Adafruit_ADXL345_U
+ *  - Adafruit_TinyUSB
+ * 
+ * CONFIGURAÇÃO DA ARDUINO IDE:
+ *  - Placa: Raspberry Pi Pico (ou Waveshare RP2040-Zero)
+ *  - USB Stack: Adafruit TinyUSB
+ * ==============================================================================
+ */
+
 #include <Wire.h>
 #include <Adafruit_Sensor.h>
 #include <Adafruit_ADXL345_U.h>
